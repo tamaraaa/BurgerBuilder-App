@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.textInput{
+  width: 60%;
+  border: 1px solid gray;
+  display: block;
+  margin: 0 auto;
+}
