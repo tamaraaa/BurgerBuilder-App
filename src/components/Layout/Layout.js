@@ -4,7 +4,7 @@ import styles from './layout.css'
 const Layout = props => {
     return(
     <React.Fragment>
-        <div>
+        <div className={styles.App}>
             toolbar,sideDrawer,backdrop
         </div>
         <main className={styles.Content}>
