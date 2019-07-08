@@ -21,13 +21,17 @@ class BurgerBuilder extends Component{
             meat : 0
         },
         totalPrice : 4,
-        purchasable : false
+        purchasable : false,
+        purchasing : false
     }
 
     updatePurchaseState = (ingredients) => {
         var sum = Object.values(ingredients)
             .reduce((cur, el) => cur + el, 0)
         this.setState({ purchasable: sum > 0 });
+    }
+    purchaseHandler = () => {
+        this.setState({purchasing : true})
     }
  
     addIngrediantHandler = type => {
@@ -65,7 +69,12 @@ class BurgerBuilder extends Component{
         })
         this.updatePurchaseState(updatedIngredients)
     }
-
+    purchaseCancelHandler = () => {
+        this.setState({purchasing : false})
+    }
+    purchaseContinueHandler = () => {
+    alert('you continued!')
+    }
     render(){
         const disabledInfo = {
             ...this.state.ingredients
@@ -76,14 +85,19 @@ class BurgerBuilder extends Component{
 
         return(
             <React.Fragment>
-              <Modal>
-                  <OrderSummary ingredients = {this.state.ingredients}/>
+              <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                  <OrderSummary 
+                        price = {this.state.totalPrice}
+                        ingredients = {this.state.ingredients}
+                        purchaseCanceled = {this.purchaseCancelHandler}
+                        purchaseContinue = {this.purchaseContinueHandler}/>
               </Modal>
               <Burger ingredients = {this.state.ingredients}/> 
               <BuildControls ingedientAdded = {this.addIngrediantHandler}
                              ingredientRemoved = {this.removeIngrediantHandler}   
                              disabled = {disabledInfo}
                              price = {this.state.totalPrice}
+                             ordered = {this.purchaseHandler}
                              purchaseble = {this.state.purchasable}/>
 
             </React.Fragment>
