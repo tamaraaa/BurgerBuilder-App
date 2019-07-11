@@ -1,10 +1,12 @@
-import React from 'react'
+import React , {Component} from 'react'
 import Button from '../../UI/Button/Button'
 
-const OrderSummary = props => {
-    const ingredientSummary = Object.keys(props.ingredients)
-        .map( igKey => {
-            return <li key = {igKey}>{igKey} : {props.ingredients[igKey]}</li>
+class OrderSummary extends Component {
+
+    render(){
+        const ingredientSummary = Object.keys(this.props.ingredients)
+            .map( igKey => {
+            return <li key = {igKey}>{igKey} : {this.props.ingredients[igKey]}</li>
         })
     return(
         <React.Fragment>
@@ -13,11 +15,12 @@ const OrderSummary = props => {
             <ul>
                 {ingredientSummary}
             </ul>
-            <p>Total price : {props.price.toFixed(2)}</p>
+            <p>Total price : {this.props.price.toFixed(2)}</p>
             <p>Continue to checkout?</p>
-            <Button btnType= 'Danger' clicked={props.purchaseCanceled}>Cancel</Button>
-            <Button btnType ='Success' clicked = {props.purchaseContinue}>Continue</Button>
+            <Button btnType= 'Danger' clicked={this.props.purchaseCanceled}>Cancel</Button>
+            <Button btnType ='Success' clicked = {this.props.purchaseContinue}>Continue</Button>
         </React.Fragment>
     )
+    }
 }
 export default OrderSummary
